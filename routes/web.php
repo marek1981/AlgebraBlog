@@ -12,13 +12,27 @@
 */
 
 Route::get('/', function () {
-	$items =DB::table('items')->get();
-    
-	return view('welcome', compact('items'));
+	
+    return view('welcome');
 });
 
-	Route::get('item/{id}', function($id){
-		$item =DB::table('items')->find($id);
-		return view ('items.show', compact('item'));
+// popis svih Item-a
+Route::get('/items', 'ItemsController@index');
+
+//dodavanje novog item-a 
+Route::get('/items/new', 'ItemsController@create');
+Route::post('/items/new','ItemsController@store');
+
+//prikaz određenog Item-a
+Route::get('/items/{id}', 'ItemsController@show');
+
+//uređivanje(edit) postojećeg item-a 
+
+Route::get('/item/{id}/edit', 'ItemsController@edit');
+Route::post('/item/{id}/edit', 'ItemsController@update');
+
+// brisanje Item-a
+Route::delete('/item/{id}', 'ItemsController@destroy');
+
+
 	
-});

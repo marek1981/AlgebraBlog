@@ -48,7 +48,7 @@ class ItemsController extends Controller
 		
 		$item->title = $data['title'];
 		$item->content = $data['content'];
-		$item->user_id = 1;
+		$item->user_id = auth()->id();
 		
 		if ($item->save())
 		{
@@ -102,6 +102,7 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('items')->where([['user_id','=',auth()->id()],['id','=', $id]])->delete();
+		return redirect ('items');
     }
 }

@@ -8,11 +8,15 @@ use App\Item;
 
 class ItemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+     /**
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
     public function index()
     {
         $items = DB::table('items')->get();
